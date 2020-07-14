@@ -1,0 +1,296 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html4" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>G4TGJ AVR Radio Library &mdash; TARL  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="#" class="icon icon-home" alt="Documentation Home"> TARL
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">G4TGJ AVR Radio Library</a></li>
+<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a><ul>
+<li><a class="reference internal" href="#i2c">I2C</a><ul>
+<li><a class="reference internal" href="#files">Files</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">TARL</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>G4TGJ AVR Radio Library</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="g4tgj-avr-radio-library">
+<h1>G4TGJ AVR Radio Library<a class="headerlink" href="#g4tgj-avr-radio-library" title="Permalink to this headline">¶</a></h1>
+<p>This library is a set of source files for AVR processors that provide functionality of use in amateur radio applications, although many of the files could also be used in non-radio systems.</p>
+<p>These files have been tested on the ATTiny85 and ATMega328P.</p>
+<p>When adding these files to your project in Atmel Studio you should add them as links rather than copying them over. This way you can easily update the library when I issue new versions. You should add as links the C files that you need so that they are compiled. You can also link to the header files but this does not bring them into the compilation. For the compiler to find them you need to add their path in Project Properties</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+<div class="section" id="i2c">
+<h2>I2C<a class="headerlink" href="#i2c" title="Permalink to this headline">¶</a></h2>
+<p>Implements the Philips I<sup>2</sup>C (Inter Integrated Circuit) bus. Some manufacturers call it TWI (Two Wire Interface), presumably to avoid trademark infringement.</p>
+<p>Currently only the master side is implemented.</p>
+<div class="section" id="files">
+<h3>Files<a class="headerlink" href="#files" title="Permalink to this headline">¶</a></h3>
+<dl class="describe">
+<dt>
+<code class="descname">i2c.h</code></dt>
+<dd><p>Header file.</p>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">i2c.c</code></dt>
+<dd><p>Implementation for devices with native 2-wire serial support (such as the ATMega328).</p>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">USI_TWI_Master.c</code></dt>
+<dd></dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="descname">USI_TWI_Master.h</code></dt>
+<dd><p>Implementation for devices that use the Universal Serial Interface (USI) to provide I2C (such as the ATTiny85).</p>
+</dd></dl>
+
+</div>
+<div class="section" id="functions">
+<h3>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="_CPPv47i2cInitv">
+<span id="_CPPv37i2cInitv"></span><span id="_CPPv27i2cInitv"></span><span id="i2cInit"></span><span class="target" id="i2c_8h_1aeb7a85378bf2caee4ff575af15ad2d72"></span>void <code class="descname">i2cInit</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv47i2cInitv" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Initialise the I2C driver.</p>
+<p>Must be called before any other I2C functions </p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv415i2cSendRegister7uint8_t7uint8_t7uint8_t">
+<span id="_CPPv315i2cSendRegister7uint8_t7uint8_t7uint8_t"></span><span id="_CPPv215i2cSendRegister7uint8_t7uint8_t7uint8_t"></span><span id="i2cSendRegister__uint8_t.uint8_t.uint8_t"></span><span class="target" id="i2c_8h_1a694b06e4069dc63bd8370a4f57c5a99e"></span>uint8_t <code class="descname">i2cSendRegister</code><span class="sig-paren">(</span>uint8_t <em>addr</em>, uint8_t <em>reg</em>, uint8_t <em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415i2cSendRegister7uint8_t7uint8_t7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Write to an 8 bit register over I2C.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">addr</span></code>: I2C address </li>
+<li><code class="docutils literal notranslate"><span class="pre">reg</span></code>: Register address </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: Data to write to register </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="_CPPv415i2cReadRegister7uint8_t7uint8_tP7uint8_t">
+<span id="_CPPv315i2cReadRegister7uint8_t7uint8_tP7uint8_t"></span><span id="_CPPv215i2cReadRegister7uint8_t7uint8_tP7uint8_t"></span><span id="i2cReadRegister__uint8_t.uint8_t.uint8_tP"></span><span class="target" id="i2c_8h_1a0bce378c34dcd8800258d838f8f6fbe8"></span>uint8_t <code class="descname">i2cReadRegister</code><span class="sig-paren">(</span>uint8_t <em>addr</em>, uint8_t <em>reg</em>, uint8_t *<em>data</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415i2cReadRegister7uint8_t7uint8_tP7uint8_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read from an 8 bit register over I2C.</p>
+<p><dl class="docutils">
+<dt><strong>Parameters</strong></dt>
+<dd><ul class="breatheparameterlist first last simple">
+<li><code class="docutils literal notranslate"><span class="pre">addr</span></code>: I2C address </li>
+<li><code class="docutils literal notranslate"><span class="pre">reg</span></code>: Register address </li>
+<li><code class="docutils literal notranslate"><span class="pre">data</span></code>: Pointer to data location to write contents of register to </li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Richard Tomlinson
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
