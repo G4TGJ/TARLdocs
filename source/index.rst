@@ -28,16 +28,27 @@ Indices and tables
 I2C
 ---
 
-Implements the Philips I2C or TWI.
+Implements the Philips |I2C| (Inter Integrated Circuit) bus. Some manufacturers call it TWI (Two Wire Interface), presumably to avoid trademark infringement.
 
-.. describe:: i2c.h Header file.
+Currently only the master side is implemented.
 
-*i2c.c:* Implementation for devices with native 2-wire serial support (such as the ATMega328).
+.. |I2C| replace:: I\ :sup:`2`\ C
 
-USI_TWI_Master.c and USI_TWI_Master.h
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Files
+^^^^^
 
-Implementation for devices that use the Universal Serial Interface (USI) to provide I2C (such as the ATTiny85).
+.. describe:: i2c.h
+    
+    Header file.
+
+.. describe:: i2c.c
+
+    Implementation for devices with native 2-wire serial support (such as the ATMega328).
+
+.. describe:: USI_TWI_Master.c
+.. describe:: USI_TWI_Master.h
+
+    Implementation for devices that use the Universal Serial Interface (USI) to provide I2C (such as the ATTiny85).
 
 Functions
 ^^^^^^^^^
