@@ -86,6 +86,12 @@ Functions
 .. doxygenfunction:: catInit
 .. doxygenfunction:: catControl
 
+.. code-block:: c
+	:caption: Example config.h definitions for the CAT driver
+
+	// Time between scans of the CAT interface
+	#define CAT_CHARACTER_DELAY 10
+
 Display
 -------
 
@@ -158,6 +164,35 @@ Functions
 .. doxygenfunction:: lcdAutoscrollOff
 .. doxygenfunction:: lcdSetCursor
 .. doxygenfunction:: lcdPrint
+
+.. code-block:: c
+	:caption: Example config.h definitions for the LCD I2C driver
+
+	// Address of the LCD display
+	#define LCD_I2C_ADDRESS 0x27
+
+.. code-block:: c
+	:caption: Example config.h definitions for the LCD port driver
+
+	// LCD Port definitions
+	#define LCD_ENABLE_PORT PORTB
+	#define LCD_ENABLE_DDR  DDRB
+	#define LCD_ENABLE_PIN  PB3
+	#define LCD_RS_PORT     PORTB
+	#define LCD_RS_DDR      DDRB
+	#define LCD_RS_PIN      PB4
+	#define LCD_DATA_PORT_0 PORTD
+	#define LCD_DATA_DDR_0  DDRD
+	#define LCD_DATA_PIN_0  PD7
+	#define LCD_DATA_PORT_1  PORTD
+	#define LCD_DATA_DDR_1  DDRD
+	#define LCD_DATA_PIN_1  PD4
+	#define LCD_DATA_PORT_2  PORTD
+	#define LCD_DATA_DDR_2  DDRD
+	#define LCD_DATA_PIN_2  PD3
+	#define LCD_DATA_PORT_3  PORTD
+	#define LCD_DATA_DDR_3  DDRD
+	#define LCD_DATA_PIN_3  PD2
 
 EEPROM
 -------
@@ -238,6 +273,33 @@ Functions
 
 .. doxygenenum:: eMorseKeyerMode
 
+.. code-block:: c
+	:caption: Example config.h definitions for the morse keyer
+
+	// Morse definitions
+	// Frequency of CW tone
+	#define CW_FREQUENCY 700
+
+	// The receive frequency needs to be offset from the dial frequency
+	// to receive with the correct tone.
+	#define RX_OFFSET CW_FREQUENCY
+
+	// Default, minimum and maximum morse speed in wpm
+	#define DEFAULT_MORSE_WPM 18
+	#define MIN_MORSE_WPM 5
+	#define MAX_MORSE_WPM 40
+
+	// Default morse keyer mode
+	#define DEFAULT_KEYER_MODE 0
+
+	// Morse paddle inputs
+	#define MORSE_PADDLE_DOT_PORT_REG   PORTB
+	#define MORSE_PADDLE_DOT_PIN_REG    PINB
+	#define MORSE_PADDLE_DOT_PIN        PB1
+	#define MORSE_PADDLE_DASH_PORT_REG  PORTB
+	#define MORSE_PADDLE_DASH_PIN_REG   PINB
+	#define MORSE_PADDLE_DASH_PIN       PB0
+
 Oscillator
 ----------
 
@@ -263,6 +325,29 @@ Functions
 .. doxygenfunction:: oscClockEnable
 .. doxygenfunction:: oscSetXtalFrequency
 
+.. code-block:: c
+	:caption: Example config.h definitions for the oscillator driver
+
+	// Oscillator chip definitions
+	// I2C address
+	#define SI5351A_I2C_ADDRESS 0x62
+
+	// Transmit and receive clocks. Receive uses 2 clocks for quadrature.
+	#define NUM_CLOCKS 3
+	#define RX_CLOCK_A 0
+	#define RX_CLOCK_B 1
+	#define TX_CLOCK   2
+
+	// The minimum and maximum crystal frequencies in the setting menu
+	// Have to allow for adjusting above or below actual valid crystal range
+	#define MIN_XTAL_FREQUENCY 24000000
+	#define MAX_XTAL_FREQUENCY 28000000
+
+	// The si5351a default crystal frequency and load capacitance
+	#define DEFAULT_XTAL_FREQ	27000000
+	#define SI_XTAL_LOAD_CAP SI_XTAL_LOAD_10PF
+
+
 Serial
 ----------
 
@@ -286,3 +371,40 @@ Functions
 .. doxygenfunction:: serialTransmit
 .. doxygenfunction:: serialTXString
 .. doxygenfunction:: serialReceive
+
+.. code-block:: c
+	:caption: Example config.h definitions for the serial driver
+
+	// Serial port definitions
+	#define SERIAL_BAUD 57600
+
+Rotary
+----------
+
+Rotary driver. Handles a rotary control with pushbutton. Decodes the quadrature signal for rotation and debounces the button
+detecting short and long presses.
+
+Files
+^^^^^
+
+.. describe:: rotary.h
+    
+    Header file.
+
+.. describe:: rotary.c
+
+    Implementation.
+
+Functions
+^^^^^^^^^
+
+.. doxygenfunction:: readRotary
+
+.. code-block:: c
+	:caption: Example config.h definitions for the rotary driver
+
+	#define DEBOUNCE_TIME   100
+
+	// Time for a key press to be a long press (ms)
+	#define LONG_PRESS_TIME 250
+
