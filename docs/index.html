@@ -1166,7 +1166,7 @@ Currently only supports the Si5351A chip with 3 outputs. CLK0 and CLK1 use PLL A
 <span id="_CPPv315oscSetFrequency7uint8_t8uint32_t6int8_t"></span><span id="_CPPv215oscSetFrequency7uint8_t8uint32_t6int8_t"></span><span id="oscSetFrequency__uint8_t.uint32_t.int8_t"></span><span class="target" id="osc_8h_1a5b0fe1a48abb6a65e14644d9dda3c036"></span>void <code class="sig-name descname">oscSetFrequency</code><span class="sig-paren">(</span>uint8_t <em>clock</em>, uint32_t <em>frequency</em>, int8_t <em>q</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415oscSetFrequency7uint8_t8uint32_t6int8_t" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Set the clock to the given frequency with optional quadrature. </p>
 <p>quadrature is only used for clock 1 - it is ignored for the others.</p>
-<p>+ve is CLK0 leads CLK1 by 90 degrees. -ve is CLK0 lags CLK1 by 90 degrees.</p>
+<p>+ve is CLK1 leads CLK0 by 90 degrees -ve is CLK1 lags CLK0 by 90 degrees</p>
 <p>0 is no quadrature i.e. set the frequency as normal.</p>
 <p>When quadrature is set for clock 1 then it is set to the same frequency as clock 0.</p>
 <p><dl class="simple">
