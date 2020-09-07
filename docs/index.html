@@ -98,6 +98,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#millis">Millis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#morse">Morse</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#oscillator">Oscillator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pushbutton">Pushbutton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#rotary">Rotary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#serial">Serial</a></li>
 </ul>
@@ -188,6 +189,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#millis">Millis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#morse">Morse</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#oscillator">Oscillator</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pushbutton">Pushbutton</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#rotary">Rotary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#serial">Serial</a></li>
 </ul>
@@ -196,11 +198,12 @@
 </div>
 <p>This library is a set of source files for AVR processors that provide functionality of use in amateur radio applications, although many of the files could also be used in
 non-radio systems.</p>
-<p>These files have been tested on the ATTiny85 and ATMega328P.</p>
+<p>These files have been tested on the ATTiny85, ATtiny817 and ATMega328P. They should work with most tinyAVR 1-series, mega and xmega devices.</p>
 <p>When adding these files to your project in Atmel Studio you should add them as links rather than copying them over. This way you can easily update the library when I issue
 new versions. You should add as links the C files that you need so that they are compiled. You can also link to the header files but this does not bring them into the compilation.
 For the compiler to find them you need to add <code class="docutils literal notranslate"><span class="pre">../../../TARL</span></code> and <code class="docutils literal notranslate"><span class="pre">..</span></code> to <code class="docutils literal notranslate"><span class="pre">Project</span> <span class="pre">Properties/Toolchain/C</span> <span class="pre">Compiler/Directories</span></code>.</p>
-<p>The source code is available at <a class="reference external" href="https://github.com/G4TGJ/TARL">TARL</a>. A good way to learn how to use the library is to look at two projects which use the library: <a class="reference external" href="https://github.com/G4TGJ/TATC">TATC</a> and
+<p>The source code is available at <a class="reference external" href="https://github.com/G4TGJ/TARL">TARL</a>. A good way to learn how to use the library is to look at tHREE projects which use the library: <a class="reference external" href="https://github.com/G4TGJ/Serial817">Serial817</a>,
+<a class="reference external" href="https://github.com/G4TGJ/TATC">TATC</a> and
 <a class="reference external" href="https://github.com/G4TGJ/FreqGen5351">FreqGen5351</a>. You can, of course, use these projects as the basis for your project - feel free to clone or fork. Just remember that if you distribute
 your program in binary form you must also make the source code available under the GPL. I would welcome pull requests with any modifications you may make.</p>
 </div>
@@ -264,8 +267,8 @@ listed the required functions.</p>
 <dd><p>Called from the main loop to do CAT control. </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id19">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the CAT driver</span><a class="headerlink" href="#id19" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the CAT driver</span><a class="headerlink" href="#id21" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Time between scans of the CAT interface</span>
 <span class="cp">#define CAT_CHARACTER_DELAY 10</span>
 </pre></div>
@@ -515,12 +518,6 @@ void <code class="sig-name descname">setCWReverse</code><span class="sig-paren">
 </p>
 </dd></dl>
 
-<dl class="cpp function">
-<dt id="_CPPv413displayUpdatev">
-<span id="_CPPv313displayUpdatev"></span><span id="_CPPv213displayUpdatev"></span><span id="displayUpdate"></span><span class="target" id="display_8h_1ac9294c5bea8a9e0fe67e6a02f462bff2"></span>void <code class="sig-name descname">displayUpdate</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413displayUpdatev" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Update the display - called from the loop. </p>
-</dd></dl>
-
 <dl class="cpp enum">
 <dt id="_CPPv412eCursorState">
 <span id="_CPPv312eCursorState"></span><span id="_CPPv212eCursorState"></span><span class="target" id="display_8h_1ac75b70a19736c0a0591834af27e95e83"></span><em class="property">enum </em><code class="sig-name descname">eCursorState</code><a class="headerlink" href="#_CPPv412eCursorState" title="Permalink to this definition">¶</a><br /></dt>
@@ -605,7 +602,7 @@ void <code class="sig-name descname">setCWReverse</code><span class="sig-paren">
 <div class="section" id="i2c">
 <h2>I2C<a class="headerlink" href="#i2c" title="Permalink to this headline">¶</a></h2>
 <p>Implements the Philips I<sup>2</sup>C (Inter Integrated Circuit) bus. Some manufacturers call it TWI (Two Wire Interface), presumably to avoid trademark infringement.</p>
-<p>Currently only the master side is implemented.</p>
+<p>Currently only the master side is implemented. Multi-master buses are not supported.</p>
 <div class="section" id="id5">
 <h3>Files<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
 <dl class="describe">
@@ -617,18 +614,10 @@ void <code class="sig-name descname">setCWReverse</code><span class="sig-paren">
 <dl class="describe">
 <dt>
 <code class="sig-name descname">i2c.c</code></dt>
-<dd><p>Implementation for devices with native 2-wire serial support (such as the ATMega328).</p>
-</dd></dl>
-
-<dl class="describe">
-<dt>
-<code class="sig-name descname">USI_TWI_Master.c</code></dt>
-<dd></dd></dl>
-
-<dl class="describe">
-<dt>
-<code class="sig-name descname">USI_TWI_Master.h</code></dt>
-<dd><p>Implementation for devices that use the Universal Serial Interface (USI) to provide I2C (such as the ATTiny85).</p>
+<dd><p>Implementation.</p>
+<blockquote>
+<div><p>Pulls in the required source file for the device. Supports ATMega, tinyAVR 1-series and devices that use the Universal Serial Interface (USI) to provide I2C (such as the ATTiny85).</p>
+</div></blockquote>
 </dd></dl>
 
 </div>
@@ -836,15 +825,15 @@ void <code class="sig-name descname">setCWReverse</code><span class="sig-paren">
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id20">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the LCD I2C driver</span><a class="headerlink" href="#id20" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the LCD I2C driver</span><a class="headerlink" href="#id22" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Address of the LCD display</span>
 <span class="cp">#define LCD_I2C_ADDRESS 0x27</span>
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the LCD port driver</span><a class="headerlink" href="#id21" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the LCD port driver</span><a class="headerlink" href="#id23" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// LCD Port definitions</span>
 <span class="cp">#define LCD_ENABLE_PORT PORTB</span>
 <span class="cp">#define LCD_ENABLE_DDR  DDRB</span>
@@ -1073,8 +1062,8 @@ void <code class="sig-name descname">setCWReverse</code><span class="sig-paren">
 
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the morse keyer</span><a class="headerlink" href="#id22" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the morse keyer</span><a class="headerlink" href="#id24" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">ioInit</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="c1">// Initialise morse output</span>
@@ -1207,8 +1196,8 @@ Currently only supports the Si5351A chip with 3 outputs. CLK0 and CLK1 use PLL A
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the oscillator driver</span><a class="headerlink" href="#id23" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the oscillator driver</span><a class="headerlink" href="#id25" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Oscillator chip definitions</span>
 <span class="c1">// I2C address</span>
 <span class="cp">#define SI5351A_I2C_ADDRESS 0x60</span>
@@ -1232,12 +1221,83 @@ Currently only supports the Si5351A chip with 3 outputs. CLK0 and CLK1 use PLL A
 </div>
 </div>
 </div>
+<div class="section" id="pushbutton">
+<h2>Pushbutton<a class="headerlink" href="#pushbutton" title="Permalink to this headline">¶</a></h2>
+<p>Pushbutton driver. Debounces the button detecting short and long presses.</p>
+<div class="section" id="id15">
+<h3>Files<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<dl class="describe">
+<dt>
+<code class="sig-name descname">pushbutton.h</code></dt>
+<dd><p>Header file.</p>
+</dd></dl>
+
+<dl class="describe">
+<dt>
+<code class="sig-name descname">pushbutton.c</code></dt>
+<dd><p>Implementation.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="id16">
+<h3>Functions<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<dl class="cpp function">
+<dt id="_CPPv418debouncePushbuttonbPbPb8uint16_t8uint16_tP14sDebounceState">
+<span id="_CPPv318debouncePushbuttonbPbPb8uint16_t8uint16_tP14sDebounceState"></span><span id="_CPPv218debouncePushbuttonbPbPb8uint16_t8uint16_tP14sDebounceState"></span><span id="debouncePushbutton__b.bP.bP.uint16_t.uint16_t.sDebounceStateP"></span><span class="target" id="pushbutton_8h_1ab2e1fb193f1ab93c98658aabb07d85d0"></span>void <code class="sig-name descname">debouncePushbutton</code><span class="sig-paren">(</span>bool <em>bDown</em>, bool *<em>pbShortPress</em>, bool *<em>pbLongPress</em>, uint16_t <em>debounceTime</em>, uint16_t <em>longPressTime</em>, <em class="property">struct</em> sDebounceState *<em>pDebounceState</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv418debouncePushbuttonbPbPb8uint16_t8uint16_tP14sDebounceState" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Debounce a pushbutton</p>
+<p><dl class="simple">
+<dt><strong>Parameters</strong></dt><dd><ul class="breatheparameterlist simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">bDown</span></code>: True if the pushbutton is down as read from the hardware </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">pbShortPress</span></code>: Pointer to boolean set to true if the pushbutton has been pressed for a short time </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[out]</span> <span class="pre">pbLongPress</span></code>: Pointer to boolean set to true if the pushbutton has been pressed for a long time or null if not used </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">debounceTime</span></code>: Minimum time pushbutton must be down for it to be a short press </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">longPressTime</span></code>: Minimum time pushbutton must be down for it to be a long press </p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">[in]</span> <span class="pre">pDebounceState</span></code>: Pointer to structure holding state machine state </p></li>
+</ul>
+</dd>
+</dl>
+</p>
+</dd></dl>
+
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">Example use of the pushbutton driver</span><a class="headerlink" href="#id26" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Debounce times in ms</span>
+<span class="cp">#define DEBOUNCE_TIME 200</span>
+<span class="cp">#define LONG_PRESS_TIME 1000</span>
+
+<span class="c1">// Keep track of pushbutton debounce state</span>
+<span class="k">static</span> <span class="k">struct</span> <span class="n">sDebounceState</span> <span class="n">debounceState</span><span class="p">;</span>
+
+<span class="c1">// Read and debounce the pushbutton</span>
+<span class="kt">bool</span> <span class="n">shortPress</span><span class="p">,</span> <span class="n">longPress</span><span class="p">;</span>
+<span class="n">debouncePushbutton</span><span class="p">(</span> <span class="n">readButton</span><span class="p">(),</span> <span class="o">&amp;</span><span class="n">shortPress</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">longPress</span><span class="p">,</span> <span class="n">DEBOUNCE_TIME</span><span class="p">,</span> <span class="n">LONG_PRESS_TIME</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">debounceState</span> <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the pushbutton driver</span><a class="headerlink" href="#id27" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">readButton</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="n">BUTTON_PIN_REG</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">BUTTON_PIN</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="c1">// Configure all the I/O we need</span>
+<span class="kt">void</span> <span class="nf">ioInit</span><span class="p">()</span>
+<span class="p">{</span>
+        <span class="n">BUTTON_PORT_REG</span> <span class="o">|=</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">BUTTON_PIN</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="rotary">
 <h2>Rotary<a class="headerlink" href="#rotary" title="Permalink to this headline">¶</a></h2>
 <p>Rotary driver. Handles a rotary control with pushbutton. Decodes the quadrature signal for rotation and debounces the button
 detecting short and long presses.</p>
-<div class="section" id="id15">
-<h3>Files<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h3>
+<p>Requires the pushbutton driver.</p>
+<div class="section" id="id17">
+<h3>Files<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
 <dl class="describe">
 <dt>
 <code class="sig-name descname">rotary.h</code></dt>
@@ -1251,8 +1311,8 @@ detecting short and long presses.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="id16">
-<h3>Functions<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id18">
+<h3>Functions<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
 <dl class="cpp function">
 <dt id="_CPPv410readRotaryPbPbPbPb">
 <span id="_CPPv310readRotaryPbPbPbPb"></span><span id="_CPPv210readRotaryPbPbPbPb"></span><span id="readRotary__bP.bP.bP.bP"></span><span class="target" id="rotary_8h_1a1cceba9d7709d628f7013eb4fb11b35b"></span>void <code class="sig-name descname">readRotary</code><span class="sig-paren">(</span>bool *<em>pbCW</em>, bool *<em>pbCCW</em>, bool *<em>pbShortPress</em>, bool *<em>pbLongPress</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv410readRotaryPbPbPbPb" title="Permalink to this definition">¶</a><br /></dt>
@@ -1269,18 +1329,18 @@ detecting short and long presses.</p>
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the rotary driver</span><a class="headerlink" href="#id24" title="Permalink to this code">¶</a></div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Time for debouncing a switch (ms)</span>
-<span class="cp">#define DEBOUNCE_TIME   100</span>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the rotary driver</span><a class="headerlink" href="#id28" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Time for debouncing the rotary pushbutton (ms)</span>
+<span class="cp">#define ROTARY_BUTTON_DEBOUNCE_TIME 100</span>
 
-<span class="c1">// Time for a key press to be a long press (ms)</span>
-<span class="cp">#define LONG_PRESS_TIME 250</span>
+<span class="c1">// Time for the rotary pushbutton press to be a long press (ms)</span>
+<span class="cp">#define ROTARY_LONG_PRESS_TIME 250</span>
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the rotary driver</span><a class="headerlink" href="#id25" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the rotary driver</span><a class="headerlink" href="#id29" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">ioReadRotary</span><span class="p">(</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">pbA</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">pbB</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">pbSw</span> <span class="p">)</span>
 <span class="p">{</span>
         <span class="o">*</span><span class="n">pbA</span> <span class="o">=</span>  <span class="o">!</span><span class="p">(</span><span class="n">ROTARY_ENCODER_A_PIN_REG</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">ROTARY_ENCODER_A_PIN</span><span class="p">));</span>
@@ -1302,9 +1362,9 @@ detecting short and long presses.</p>
 </div>
 <div class="section" id="serial">
 <h2>Serial<a class="headerlink" href="#serial" title="Permalink to this headline">¶</a></h2>
-<p>Serial driver for chips, such as the ATMega328, that have a USART. Interrupt driven with transmit and receive buffers.</p>
-<div class="section" id="id17">
-<h3>Files<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>Serial driver for chips, such as the ATMega328 or ATtiny817, that have a USART. Interrupt driven with transmit and receive buffers.</p>
+<div class="section" id="id19">
+<h3>Files<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h3>
 <dl class="describe">
 <dt>
 <code class="sig-name descname">serial.h</code></dt>
@@ -1318,8 +1378,8 @@ detecting short and long presses.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="id18">
-<h3>Functions<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id20">
+<h3>Functions<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
 <dl class="cpp function">
 <dt id="_CPPv410serialInit8uint32_t">
 <span id="_CPPv310serialInit8uint32_t"></span><span id="_CPPv210serialInit8uint32_t"></span><span id="serialInit__uint32_t"></span><span class="target" id="serial_8h_1a0015b6b8a38d692007ce1218c9b09925"></span>void <code class="sig-name descname">serialInit</code><span class="sig-paren">(</span>uint32_t <em>baud</em><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv410serialInit8uint32_t" title="Permalink to this definition">¶</a><br /></dt>
@@ -1371,10 +1431,12 @@ detecting short and long presses.</p>
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the serial driver</span><a class="headerlink" href="#id26" title="Permalink to this code">¶</a></div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Serial port definitions</span>
-<span class="cp">#define SERIAL_BAUD 57600</span>
+<div class="literal-block-wrapper docutils container" id="id30">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the serial driver</span><a class="headerlink" href="#id30" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// // Serial port buffer lengths</span>
+<span class="c1">// Lengths should be a power of 2 for efficiency</span>
+<span class="cp">#define SERIAL_RX_BUF_LEN 32</span>
+<span class="cp">#define SERIAL_TX_BUF_LEN 64</span>
 </pre></div>
 </div>
 </div>
