@@ -15,13 +15,14 @@ G4TGJ AVR Radio Library
 This library is a set of source files for AVR processors that provide functionality of use in amateur radio applications, although many of the files could also be used in
 non-radio systems.
 
-These files have been tested on the ATTiny85 and ATMega328P.
+These files have been tested on the ATTiny85, ATtiny817 and ATMega328P. They should work with most tinyAVR 1-series, mega and xmega devices.
 
 When adding these files to your project in Atmel Studio you should add them as links rather than copying them over. This way you can easily update the library when I issue
 new versions. You should add as links the C files that you need so that they are compiled. You can also link to the header files but this does not bring them into the compilation.
 For the compiler to find them you need to add ``../../../TARL`` and ``..`` to ``Project Properties/Toolchain/C Compiler/Directories``.
 
-The source code is available at `TARL <https://github.com/G4TGJ/TARL>`_. A good way to learn how to use the library is to look at two projects which use the library: `TATC <https://github.com/G4TGJ/TATC>`_ and
+The source code is available at `TARL <https://github.com/G4TGJ/TARL>`_. A good way to learn how to use the library is to look at tHREE projects which use the library: `Serial817 <https://github.com/G4TGJ/Serial817>`_,
+`TATC <https://github.com/G4TGJ/TATC>`_ and
 `FreqGen5351 <https://github.com/G4TGJ/FreqGen5351>`_. You can, of course, use these projects as the basis for your project - feel free to clone or fork. Just remember that if you distribute
 your program in binary form you must also make the source code available under the GPL. I would welcome pull requests with any modifications you may make.
 
@@ -210,7 +211,6 @@ Functions
 .. doxygenfunction:: displayText
 .. doxygenfunction:: displayCursor
 .. doxygenfunction:: displaySplitLine
-.. doxygenfunction:: displayUpdate
 
 .. doxygenenum:: eCursorState
 
@@ -243,7 +243,7 @@ I2C
 
 Implements the Philips |I2C| (Inter Integrated Circuit) bus. Some manufacturers call it TWI (Two Wire Interface), presumably to avoid trademark infringement.
 
-Currently only the master side is implemented.
+Currently only the master side is implemented. Multi-master buses are not supported.
 
 .. |I2C| replace:: I\ :sup:`2`\ C
 
@@ -256,12 +256,9 @@ Files
 
 .. describe:: i2c.c
 
-    Implementation for devices with native 2-wire serial support (such as the ATMega328).
-
-.. describe:: USI_TWI_Master.c
-.. describe:: USI_TWI_Master.h
-
-    Implementation for devices that use the Universal Serial Interface (USI) to provide I2C (such as the ATTiny85).
+    Implementation.
+	
+	Pulls in the required source file for the device. Supports ATMega, tinyAVR 1-series and devices that use the Universal Serial Interface (USI) to provide I2C (such as the ATTiny85).
 
 Functions
 ^^^^^^^^^
@@ -486,11 +483,62 @@ Functions
 	#define DEFAULT_XTAL_FREQ	27000000
 	#define SI_XTAL_LOAD_CAP SI_XTAL_LOAD_10PF
 
+Pushbutton
+----------
+
+Pushbutton driver. Debounces the button detecting short and long presses.
+
+Files
+^^^^^
+
+.. describe:: pushbutton.h
+    
+    Header file.
+
+.. describe:: pushbutton.c
+
+    Implementation.
+
+Functions
+^^^^^^^^^
+
+.. doxygenfunction:: debouncePushbutton
+
+.. code-block:: c
+	:caption: Example use of the pushbutton driver
+
+	// Debounce times in ms
+	#define DEBOUNCE_TIME 200
+	#define LONG_PRESS_TIME 1000
+
+	// Keep track of pushbutton debounce state
+	static struct sDebounceState debounceState;
+
+	// Read and debounce the pushbutton
+	bool shortPress, longPress;
+	debouncePushbutton( readButton(), &shortPress, &longPress, DEBOUNCE_TIME, LONG_PRESS_TIME, &debounceState );
+
+.. code-block:: c
+	:caption: Example io.c definitions for the pushbutton driver
+
+	bool readButton()
+	{
+		return !(BUTTON_PIN_REG & (1<<BUTTON_PIN));
+	}
+
+	// Configure all the I/O we need
+	void ioInit()
+	{
+		BUTTON_PORT_REG |= (1<<BUTTON_PIN);
+	}
+
 Rotary
 ----------
 
 Rotary driver. Handles a rotary control with pushbutton. Decodes the quadrature signal for rotation and debounces the button
 detecting short and long presses.
+
+Requires the pushbutton driver.
 
 Files
 ^^^^^
@@ -511,11 +559,11 @@ Functions
 .. code-block:: c
 	:caption: Example config.h definitions for the rotary driver
 
-	// Time for debouncing a switch (ms)
-	#define DEBOUNCE_TIME   100
+	// Time for debouncing the rotary pushbutton (ms)
+	#define ROTARY_BUTTON_DEBOUNCE_TIME 100
 
-	// Time for a key press to be a long press (ms)
-	#define LONG_PRESS_TIME 250
+	// Time for the rotary pushbutton press to be a long press (ms)
+	#define ROTARY_LONG_PRESS_TIME 250
 
 .. code-block:: c
 	:caption: Example io.c definitions for the rotary driver
@@ -538,7 +586,7 @@ Functions
 Serial
 ----------
 
-Serial driver for chips, such as the ATMega328, that have a USART. Interrupt driven with transmit and receive buffers.
+Serial driver for chips, such as the ATMega328 or ATtiny817, that have a USART. Interrupt driven with transmit and receive buffers.
 
 Files
 ^^^^^
@@ -562,6 +610,8 @@ Functions
 .. code-block:: c
 	:caption: Example config.h definitions for the serial driver
 
-	// Serial port definitions
-	#define SERIAL_BAUD 57600
+	// // Serial port buffer lengths
+	// Lengths should be a power of 2 for efficiency
+	#define SERIAL_RX_BUF_LEN 32
+	#define SERIAL_TX_BUF_LEN 64
 
