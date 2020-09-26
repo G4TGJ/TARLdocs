@@ -193,6 +193,9 @@ Display
 
 Display driver. Requires the LCD driver.
 
+If you are short of flash space then defining DISPLAY_DISABLE_SCROLLING will save some space. Obviously this disables
+scrolling and ``displaySplitLine()`` is not available.
+
 Files
 ^^^^^
 
@@ -213,6 +216,12 @@ Functions
 .. doxygenfunction:: displaySplitLine
 
 .. doxygenenum:: eCursorState
+
+.. code-block:: c
+	:caption: Example config.h definitions for the display driver
+
+	// Define to disable scrolling
+	#define DISPLAY_DISABLE_SCROLLING
 
 EEPROM
 -------
