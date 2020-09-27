@@ -37,9 +37,34 @@ Drivers
 config.h
 --------
 
-All source files include ``config.h``. It is used to customise the library for specific hardware, e.g. IO ports, I2C address, frequency ranges.
+All source files include ``config.h``. It is used to customise the library for specific hardware, e.g. IO ports, I2C address, frequency ranges. It also contains the definition of the ``bool`` type and the 
+values ``true`` and ``false``.
 
-``config.h`` is not part of the library but should be provided as part of your project. For each driver I have listed the defintions required with example values - these will
+.. code-block:: c
+	:caption: Example config.h structure
+
+	/*
+	 * config.h
+	 * 
+	 * Configuration settings for the whole project
+	 *
+	 */ 
+
+
+	#ifndef CONFIG_H_
+	#define CONFIG_H_
+
+	#include <avr/io.h>
+
+	// General definitions
+	typedef uint8_t bool;
+	#define true 1
+	#define false 0
+
+	#endif /* CONFIG_H_ */
+
+
+``config.h`` is not part of the library but should be provided as part of your project. For each driver I have listed the definitions required with example values - these will
 obviously have to match your requirements and hardware.
 
 main.c and main.h

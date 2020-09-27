@@ -217,8 +217,33 @@ your program in binary form you must also make the source code available under t
 <h1>Drivers<a class="headerlink" href="#drivers" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="config-h">
 <h2>config.h<a class="headerlink" href="#config-h" title="Permalink to this headline">¶</a></h2>
-<p>All source files include <code class="docutils literal notranslate"><span class="pre">config.h</span></code>. It is used to customise the library for specific hardware, e.g. IO ports, I2C address, frequency ranges.</p>
-<p><code class="docutils literal notranslate"><span class="pre">config.h</span></code> is not part of the library but should be provided as part of your project. For each driver I have listed the defintions required with example values - these will
+<p>All source files include <code class="docutils literal notranslate"><span class="pre">config.h</span></code>. It is used to customise the library for specific hardware, e.g. IO ports, I2C address, frequency ranges. It also contains the definition of the <code class="docutils literal notranslate"><span class="pre">bool</span></code> type and the
+values <code class="docutils literal notranslate"><span class="pre">true</span></code> and <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<div class="literal-block-wrapper docutils container" id="id21">
+<div class="code-block-caption"><span class="caption-text">Example config.h structure</span><a class="headerlink" href="#id21" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cm">/*</span>
+<span class="cm"> * config.h</span>
+<span class="cm"> *</span>
+<span class="cm"> * Configuration settings for the whole project</span>
+<span class="cm"> *</span>
+<span class="cm"> */</span>
+
+
+<span class="cp">#ifndef CONFIG_H_</span>
+<span class="cp">#define CONFIG_H_</span>
+
+<span class="cp">#include</span> <span class="cpf">&lt;avr/io.h&gt;</span><span class="cp"></span>
+
+<span class="c1">// General definitions</span>
+<span class="k">typedef</span> <span class="kt">uint8_t</span> <span class="kt">bool</span><span class="p">;</span>
+<span class="cp">#define true 1</span>
+<span class="cp">#define false 0</span>
+
+<span class="cp">#endif </span><span class="cm">/* CONFIG_H_ */</span><span class="cp"></span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">config.h</span></code> is not part of the library but should be provided as part of your project. For each driver I have listed the definitions required with example values - these will
 obviously have to match your requirements and hardware.</p>
 </div>
 <div class="section" id="main-c-and-main-h">
@@ -267,8 +292,8 @@ listed the required functions.</p>
 <dd><p>Called from the main loop to do CAT control. </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id21">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the CAT driver</span><a class="headerlink" href="#id21" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id22">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the CAT driver</span><a class="headerlink" href="#id22" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Time between scans of the CAT interface</span>
 <span class="cp">#define CAT_CHARACTER_DELAY 10</span>
 </pre></div>
@@ -542,8 +567,8 @@ scrolling and <code class="docutils literal notranslate"><span class="pre">displ
 
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id22">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the display driver</span><a class="headerlink" href="#id22" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id23">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the display driver</span><a class="headerlink" href="#id23" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Define to disable scrolling</span>
 <span class="cp">#define DISPLAY_DISABLE_SCROLLING</span>
 </pre></div>
@@ -834,15 +859,15 @@ scrolling and <code class="docutils literal notranslate"><span class="pre">displ
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id23">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the LCD I2C driver</span><a class="headerlink" href="#id23" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id24">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the LCD I2C driver</span><a class="headerlink" href="#id24" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Address of the LCD display</span>
 <span class="cp">#define LCD_I2C_ADDRESS 0x27</span>
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id24">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the LCD port driver</span><a class="headerlink" href="#id24" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id25">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the LCD port driver</span><a class="headerlink" href="#id25" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// LCD Port definitions</span>
 <span class="cp">#define LCD_ENABLE_PORT PORTB</span>
 <span class="cp">#define LCD_ENABLE_DDR  DDRB</span>
@@ -1071,8 +1096,8 @@ scrolling and <code class="docutils literal notranslate"><span class="pre">displ
 
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id25">
-<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the morse keyer</span><a class="headerlink" href="#id25" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the morse keyer</span><a class="headerlink" href="#id26" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">ioInit</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="c1">// Initialise morse output</span>
@@ -1205,8 +1230,8 @@ Currently only supports the Si5351A chip with 3 outputs. CLK0 and CLK1 use PLL A
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the oscillator driver</span><a class="headerlink" href="#id26" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the oscillator driver</span><a class="headerlink" href="#id27" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Oscillator chip definitions</span>
 <span class="c1">// I2C address</span>
 <span class="cp">#define SI5351A_I2C_ADDRESS 0x60</span>
@@ -1268,8 +1293,8 @@ Currently only supports the Si5351A chip with 3 outputs. CLK0 and CLK1 use PLL A
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">Example use of the pushbutton driver</span><a class="headerlink" href="#id27" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">Example use of the pushbutton driver</span><a class="headerlink" href="#id28" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Debounce times in ms</span>
 <span class="cp">#define DEBOUNCE_TIME 200</span>
 <span class="cp">#define LONG_PRESS_TIME 1000</span>
@@ -1283,8 +1308,8 @@ Currently only supports the Si5351A chip with 3 outputs. CLK0 and CLK1 use PLL A
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id28">
-<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the pushbutton driver</span><a class="headerlink" href="#id28" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the pushbutton driver</span><a class="headerlink" href="#id29" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">readButton</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="n">BUTTON_PIN_REG</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">BUTTON_PIN</span><span class="p">));</span>
@@ -1338,8 +1363,8 @@ detecting short and long presses.</p>
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id29">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the rotary driver</span><a class="headerlink" href="#id29" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id30">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the rotary driver</span><a class="headerlink" href="#id30" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Time for debouncing the rotary pushbutton (ms)</span>
 <span class="cp">#define ROTARY_BUTTON_DEBOUNCE_TIME 100</span>
 
@@ -1348,8 +1373,8 @@ detecting short and long presses.</p>
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id30">
-<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the rotary driver</span><a class="headerlink" href="#id30" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id31">
+<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the rotary driver</span><a class="headerlink" href="#id31" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">ioReadRotary</span><span class="p">(</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">pbA</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">pbB</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">pbSw</span> <span class="p">)</span>
 <span class="p">{</span>
         <span class="o">*</span><span class="n">pbA</span> <span class="o">=</span>  <span class="o">!</span><span class="p">(</span><span class="n">ROTARY_ENCODER_A_PIN_REG</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">ROTARY_ENCODER_A_PIN</span><span class="p">));</span>
@@ -1440,8 +1465,8 @@ detecting short and long presses.</p>
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id31">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the serial driver</span><a class="headerlink" href="#id31" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id32">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the serial driver</span><a class="headerlink" href="#id32" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// // Serial port buffer lengths</span>
 <span class="c1">// Lengths should be a power of 2 for efficiency</span>
 <span class="cp">#define SERIAL_RX_BUF_LEN 32</span>
