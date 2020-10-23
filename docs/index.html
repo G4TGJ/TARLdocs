@@ -894,7 +894,9 @@ scrolling and <code class="docutils literal notranslate"><span class="pre">displ
 </div>
 <div class="section" id="millis">
 <h2>Millis<a class="headerlink" href="#millis" title="Permalink to this headline">¶</a></h2>
-<p>Timer providing a count in milliseconds and delays in milliseconds or microseconds.</p>
+<p>Timer providing a count in milliseconds and delays in milliseconds or microseconds.
+For the tinyAVR 1-series the clock divider must be specified in <code class="docutils literal notranslate"><span class="pre">config.h</span></code>. This is
+because the TCA timer can be used as the source for other timers.</p>
 <div class="section" id="id9">
 <h3>Files<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
 <dl class="describe">
@@ -955,6 +957,14 @@ scrolling and <code class="docutils literal notranslate"><span class="pre">displ
 </p>
 </dd></dl>
 
+<div class="literal-block-wrapper docutils container" id="id26">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the millis driver (for tinyAVR 1-series only)</span><a class="headerlink" href="#id26" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Clock divider</span>
+<span class="c1">// This is used by the millisecond clock on TCA0</span>
+<span class="cp">#define CLOCK_DIV 1</span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="morse">
@@ -1096,8 +1106,8 @@ scrolling and <code class="docutils literal notranslate"><span class="pre">displ
 
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id26">
-<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the morse keyer</span><a class="headerlink" href="#id26" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id27">
+<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the morse keyer</span><a class="headerlink" href="#id27" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">ioInit</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="c1">// Initialise morse output</span>
@@ -1230,8 +1240,8 @@ Currently only supports the Si5351A chip with 3 outputs. CLK0 and CLK1 use PLL A
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the oscillator driver</span><a class="headerlink" href="#id27" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id28">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the oscillator driver</span><a class="headerlink" href="#id28" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Oscillator chip definitions</span>
 <span class="c1">// I2C address</span>
 <span class="cp">#define SI5351A_I2C_ADDRESS 0x60</span>
@@ -1293,8 +1303,8 @@ Currently only supports the Si5351A chip with 3 outputs. CLK0 and CLK1 use PLL A
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id28">
-<div class="code-block-caption"><span class="caption-text">Example use of the pushbutton driver</span><a class="headerlink" href="#id28" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id29">
+<div class="code-block-caption"><span class="caption-text">Example use of the pushbutton driver</span><a class="headerlink" href="#id29" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Debounce times in ms</span>
 <span class="cp">#define DEBOUNCE_TIME 200</span>
 <span class="cp">#define LONG_PRESS_TIME 1000</span>
@@ -1308,8 +1318,8 @@ Currently only supports the Si5351A chip with 3 outputs. CLK0 and CLK1 use PLL A
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id29">
-<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the pushbutton driver</span><a class="headerlink" href="#id29" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id30">
+<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the pushbutton driver</span><a class="headerlink" href="#id30" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span> <span class="nf">readButton</span><span class="p">()</span>
 <span class="p">{</span>
         <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="n">BUTTON_PIN_REG</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">BUTTON_PIN</span><span class="p">));</span>
@@ -1363,8 +1373,8 @@ detecting short and long presses.</p>
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id30">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the rotary driver</span><a class="headerlink" href="#id30" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id31">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the rotary driver</span><a class="headerlink" href="#id31" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Time for debouncing the rotary pushbutton (ms)</span>
 <span class="cp">#define ROTARY_BUTTON_DEBOUNCE_TIME 100</span>
 
@@ -1373,8 +1383,8 @@ detecting short and long presses.</p>
 </pre></div>
 </div>
 </div>
-<div class="literal-block-wrapper docutils container" id="id31">
-<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the rotary driver</span><a class="headerlink" href="#id31" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id32">
+<div class="code-block-caption"><span class="caption-text">Example io.c definitions for the rotary driver</span><a class="headerlink" href="#id32" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span> <span class="nf">ioReadRotary</span><span class="p">(</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">pbA</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">pbB</span><span class="p">,</span> <span class="kt">bool</span> <span class="o">*</span><span class="n">pbSw</span> <span class="p">)</span>
 <span class="p">{</span>
         <span class="o">*</span><span class="n">pbA</span> <span class="o">=</span>  <span class="o">!</span><span class="p">(</span><span class="n">ROTARY_ENCODER_A_PIN_REG</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">ROTARY_ENCODER_A_PIN</span><span class="p">));</span>
@@ -1465,8 +1475,8 @@ detecting short and long presses.</p>
 </p>
 </dd></dl>
 
-<div class="literal-block-wrapper docutils container" id="id32">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the serial driver</span><a class="headerlink" href="#id32" title="Permalink to this code">¶</a></div>
+<div class="literal-block-wrapper docutils container" id="id33">
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the serial driver</span><a class="headerlink" href="#id33" title="Permalink to this code">¶</a></div>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// // Serial port buffer lengths</span>
 <span class="c1">// Lengths should be a power of 2 for efficiency</span>
 <span class="cp">#define SERIAL_RX_BUF_LEN 32</span>

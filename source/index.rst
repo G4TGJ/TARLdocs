@@ -380,6 +380,8 @@ Millis
 -------
 
 Timer providing a count in milliseconds and delays in milliseconds or microseconds.
+For the tinyAVR 1-series the clock divider must be specified in ``config.h``. This is
+because the TCA timer can be used as the source for other timers.
 
 Files
 ^^^^^
@@ -400,6 +402,13 @@ Functions
 .. doxygenfunction:: delay
 
 .. doxygendefine:: delayMicroseconds
+
+.. code-block:: c
+	:caption: Example config.h definitions for the millis driver (for tinyAVR 1-series only)
+
+	// Clock divider
+	// This is used by the millisecond clock on TCA0
+	#define CLOCK_DIV 1
 
 Morse
 -------
