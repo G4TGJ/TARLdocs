@@ -15,13 +15,13 @@ G4TGJ AVR Radio Library
 This library is a set of source files for AVR processors that provide functionality of use in amateur radio applications, although many of the files could also be used in
 non-radio systems.
 
-These files have been tested on the ATTiny85, ATtiny817 and ATMega328P. They should work with most tinyAVR 1-series, mega and xmega devices.
+These files have been tested on the ATTiny85, ATtiny817, ATtiny3216 and ATMega328P. They should work with most tinyAVR 1-series, mega and xmega devices.
 
 When adding these files to your project in Atmel Studio you should add them as links rather than copying them over. This way you can easily update the library when I issue
 new versions. You should add as links the C files that you need so that they are compiled. You can also link to the header files but this does not bring them into the compilation.
 For the compiler to find them you need to add ``../../../TARL`` and ``..`` to ``Project Properties/Toolchain/C Compiler/Directories``.
 
-The source code is available at `TARL <https://github.com/G4TGJ/TARL>`_. A good way to learn how to use the library is to look at tHREE projects which use the library: `Serial817 <https://github.com/G4TGJ/Serial817>`_,
+The source code is available at `TARL <https://github.com/G4TGJ/TARL>`_. A good way to learn how to use the library is to look at three projects which use the library: `Serial817 <https://github.com/G4TGJ/Serial817>`_,
 `TATC <https://github.com/G4TGJ/TATC>`_ and
 `FreqGen5351 <https://github.com/G4TGJ/FreqGen5351>`_. You can, of course, use these projects as the basis for your project - feel free to clone or fork. Just remember that if you distribute
 your program in binary form you must also make the source code available under the GPL. I would welcome pull requests with any modifications you may make.
@@ -218,7 +218,7 @@ Display
 
 Display driver. Requires the LCD driver.
 
-If you are short of flash space then defining DISPLAY_DISABLE_SCROLLING will save some space. Obviously this disables
+If you are short of flash space then defining ``DISPLAY_DISABLE_SCROLLING`` will save some space. Obviously this disables
 scrolling and ``displaySplitLine()`` is not available.
 
 Files
@@ -315,7 +315,9 @@ Files
 
 .. describe:: lcd.c
 
-    Implementation. Requires either ``lcd_i2c.c`` or ``lcd_port.c``.
+    Implementation. Requires either ``lcd_i2c.c`` or ``lcd_port.c``. Alternatively,
+    you can use ``lcd_if.c`` and define either ``LCD_PORT`` or ``LCD_I2C`` to target code at either
+    type of display.
 
 .. describe:: lcd_i2c.c
 
@@ -324,6 +326,10 @@ Files
 .. describe:: lcd_port.c
 
     Use with LCD displays directly connected to the IO ports on the AVR controller.
+
+.. describe:: lcd_if.c
+
+	Pulls in either ``lcd_i2c.c`` (if ``LCD_I2C`` is defined) or ``lcd_port.c`` (if ``LCD_PORT`` is defined).
 
 Functions
 ^^^^^^^^^
@@ -346,6 +352,12 @@ Functions
 .. doxygenfunction:: lcdAutoscrollOff
 .. doxygenfunction:: lcdSetCursor
 .. doxygenfunction:: lcdPrint
+
+.. code-block:: c
+	:caption: Example config.h definitions for ``lcd_if.c``
+
+	// Use the I2C version of the LCD driver
+	#define LCD_I2C
 
 .. code-block:: c
 	:caption: Example config.h definitions for the LCD I2C driver
