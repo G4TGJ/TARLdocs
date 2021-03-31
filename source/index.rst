@@ -392,7 +392,8 @@ Millis
 -------
 
 Timer providing a count in milliseconds and delays in milliseconds or microseconds.
-For the tinyAVR 1-series the clock divider must be specified in ``config.h``. This is
+The AVR clock speed (``F_CPU``) must be specified in ``config.h`` as this is needed for correct timing.  
+For the tinyAVR 1-series the clock divider must also be specified. This is
 because the TCA timer can be used as the source for other timers.
 
 Files
@@ -416,9 +417,13 @@ Functions
 .. doxygendefine:: delayMicroseconds
 
 .. code-block:: c
-	:caption: Example config.h definitions for the millis driver (for tinyAVR 1-series only)
+	:caption: Example config.h definitions for the millis driver
 
-	// Clock divider
+	// CPU clock speed
+	// This must match the speed set in the AVR's fuses
+	#define F_CPU 20000000UL
+
+	// Clock divider (for tinyAVR 1-series only)
 	// This is used by the millisecond clock on TCA0
 	#define CLOCK_DIV 1
 

@@ -910,7 +910,8 @@ type of display.</p>
 <div class="section" id="millis">
 <h2>Millis<a class="headerlink" href="#millis" title="Permalink to this headline">¶</a></h2>
 <p>Timer providing a count in milliseconds and delays in milliseconds or microseconds.
-For the tinyAVR 1-series the clock divider must be specified in <code class="docutils literal notranslate"><span class="pre">config.h</span></code>. This is
+The AVR clock speed (<code class="docutils literal notranslate"><span class="pre">F_CPU</span></code>) must be specified in <code class="docutils literal notranslate"><span class="pre">config.h</span></code> as this is needed for correct timing.
+For the tinyAVR 1-series the clock divider must also be specified. This is
 because the TCA timer can be used as the source for other timers.</p>
 <div class="section" id="id9">
 <h3>Files<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
@@ -973,8 +974,12 @@ because the TCA timer can be used as the source for other timers.</p>
 </dd></dl>
 
 <div class="literal-block-wrapper docutils container" id="id27">
-<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the millis driver (for tinyAVR 1-series only)</span><a class="headerlink" href="#id27" title="Permalink to this code">¶</a></div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Clock divider</span>
+<div class="code-block-caption"><span class="caption-text">Example config.h definitions for the millis driver</span><a class="headerlink" href="#id27" title="Permalink to this code">¶</a></div>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// CPU clock speed</span>
+<span class="c1">// This must match the speed set in the AVR&#39;s fuses</span>
+<span class="cp">#define F_CPU 20000000UL</span>
+
+<span class="c1">// Clock divider (for tinyAVR 1-series only)</span>
 <span class="c1">// This is used by the millisecond clock on TCA0</span>
 <span class="cp">#define CLOCK_DIV 1</span>
 </pre></div>
