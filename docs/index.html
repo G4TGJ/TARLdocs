@@ -476,6 +476,7 @@ void <code class="sig-name descname">setCWReverse</code><span class="sig-paren">
 <div class="section" id="display">
 <h2>Display<a class="headerlink" href="#display" title="Permalink to this headline">¶</a></h2>
 <p>Display driver. Requires the LCD driver.</p>
+<p>You must specify the width and height of the display in <code class="docutils literal notranslate"><span class="pre">config.h</span></code>.</p>
 <p>If you are short of flash space then defining <code class="docutils literal notranslate"><span class="pre">DISPLAY_DISABLE_SCROLLING</span></code> will save some space. Obviously this disables
 scrolling and <code class="docutils literal notranslate"><span class="pre">displaySplitLine()</span></code> is not available.</p>
 <div class="section" id="id1">
@@ -569,7 +570,11 @@ scrolling and <code class="docutils literal notranslate"><span class="pre">displ
 
 <div class="literal-block-wrapper docutils container" id="id23">
 <div class="code-block-caption"><span class="caption-text">Example config.h definitions for the display driver</span><a class="headerlink" href="#id23" title="Permalink to this code">¶</a></div>
-<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// Define to disable scrolling</span>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="c1">// The size of the LCD screen</span>
+<span class="cp">#define LCD_WIDTH 16</span>
+<span class="cp">#define LCD_HEIGHT 2</span>
+
+<span class="c1">// Define to disable scrolling</span>
 <span class="cp">#define DISPLAY_DISABLE_SCROLLING</span>
 </pre></div>
 </div>

@@ -218,6 +218,8 @@ Display
 
 Display driver. Requires the LCD driver.
 
+You must specify the width and height of the display in ``config.h``.
+
 If you are short of flash space then defining ``DISPLAY_DISABLE_SCROLLING`` will save some space. Obviously this disables
 scrolling and ``displaySplitLine()`` is not available.
 
@@ -244,6 +246,10 @@ Functions
 
 .. code-block:: c
 	:caption: Example config.h definitions for the display driver
+
+	// The size of the LCD screen
+	#define LCD_WIDTH 16
+	#define LCD_HEIGHT 2
 
 	// Define to disable scrolling
 	#define DISPLAY_DISABLE_SCROLLING
