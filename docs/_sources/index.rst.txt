@@ -358,6 +358,7 @@ Functions
 .. doxygenfunction:: lcdAutoscrollOff
 .. doxygenfunction:: lcdSetCursor
 .. doxygenfunction:: lcdPrint
+.. doxygenfunction:: lcdBacklight
 
 .. code-block:: c
 	:caption: Example config.h definitions for ``lcd_if.c``
